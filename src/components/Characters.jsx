@@ -1,12 +1,13 @@
 import Card from './Card'
 import { useContext } from 'react'
 import { CharactersContext } from '../context/charactersContext'
+import Pagination from './Pagination'
 
 function Characters() {
   const { characters } = useContext(CharactersContext)
-  console.log(characters)
   return (
     <div className='row'>
+      <Pagination />
       {characters.map((character, index) => (
         <div className='col-3' key={index}>
           <Card

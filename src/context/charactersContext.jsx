@@ -18,7 +18,6 @@ function CharactersContextProvider({ children }) {
   }, [])
 
   const setData = (data) => {
-    console.log(data)
     setCharacters(data.results)
     setTotalResults(data.info.count)
     setTotalPages(data.info.pages)
@@ -31,17 +30,24 @@ function CharactersContextProvider({ children }) {
   }
 
   const btnNextPage = () => {
-    setCurrentPage(currentPage + 1)
+    setCurrentPage(Number(currentPage) + 1)
     setCurrentURL(urlNextPage)
     getDataInfo(urlNextPage)
   }
 
   const btnPrevPage = () => {
-    setCurrentPage(currentPage - 1)
+    setCurrentPage(Number(currentPage) - 1)
     setCurrentURL(urlPrevPage)
     getDataInfo(urlPrevPage)
   }
 
+  const btnSelectPage = (e) => {
+    const page = e.target.value ?? 1
+    setCurrentPage(page)
+    setCurrentURL(`${URL_API}${page}`)
+    getDataInfo(`${URL_API}${page}`)
+  }
+  
   return (
     <CharactersContext.Provider
       value={{
@@ -54,6 +60,7 @@ function CharactersContextProvider({ children }) {
         setCurrentPage,
         btnNextPage,
         btnPrevPage,
+        btnSelectPage,
       }}
     >
       {children}
